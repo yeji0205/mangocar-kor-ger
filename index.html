@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fahrzeugkatalog | MangoAuto Deutschland</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=24">
+</head>
+<body>
+
+  <header>
+    <div class="nav-in">
+      <div class="logo-img" onclick="goHome()">
+        <img src="logo.webp" alt="MangoAuto Logo">
+      </div>
+      <nav>
+        <a href="#" class="act">Fahrzeugkatalog</a>
+        <a href="#">Fahrzeug-Check</a>
+        <a href="#">Unser Service</a>
+        <a href="#">FAQ</a>
+        <a href="#/kontakt" class="nav-cta" onclick="goKontakt();return false">Kontakt</a>
+      </nav>
+      <button class="mob-menu" onclick="alert('Mobile Menü kommt bald!')">
+        <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h18M4 13h18M4 19h18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══ CATALOG VIEW ═══ -->
+  <div id="catalogView">
+    <section class="hero">
+      <h1>Fahrzeuge aus <span>Korea</span> entdecken</h1>
+      <p>Entdecke unsere handverlesene Auswahl an hochwertigen Gebrauchtwagen direkt aus Korea.</p>
+      <p>Alle Fahrzeuge werden sorgfältig geprüft und professionell importiert.</p>
+      <div class="disc">Hinweis: Wir agieren als Vermittler — alle Fahrzeuge stammen aus Korea. Gewährleistung ausgeschlossen.</div>
+    </section>
+
+
+    <div class="main-l">
+      <aside class="side">
+        <div class="fp">
+          <div class="fp-h">
+            <h3>🔍 Filter</h3>
+          </div>
+          <div class="fg">
+            <label>Marke</label>
+            <select class="f-sel" id="filterBrand" onchange="applyFilters()">
+              <option value="">Alle Marken</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Baujahr</label>
+            <div class="f-row">
+              <select class="f-sel" id="filterYearFrom" onchange="applyFilters()"><option value="">Von</option></select>
+              <select class="f-sel" id="filterYearTo" onchange="applyFilters()"><option value="">Bis</option></select>
+            </div>
+          </div>
+          <div class="fg">
+            <label>Kilometerstand</label>
+            <select class="f-sel" id="filterKmFrom" onchange="applyFilters()">
+              <option value="">Kilometerstand von</option>
+              <option value="0">0 km</option>
+              <option value="10000">10.000 km</option>
+              <option value="30000">30.000 km</option>
+              <option value="50000">50.000 km</option>
+              <option value="100000">100.000 km</option>
+              <option value="150000">150.000 km</option>
+            </select>
+            <select class="f-sel f-sel-mt" id="filterKmTo" onchange="applyFilters()">
+              <option value="">Kilometerstand bis</option>
+              <option value="10000">10.000 km</option>
+              <option value="30000">30.000 km</option>
+              <option value="50000">50.000 km</option>
+              <option value="100000">100.000 km</option>
+              <option value="150000">150.000 km</option>
+              <option value="300000">300.000 km</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Preis (€)</label>
+            <div class="f-row">
+              <select class="f-sel" id="filterPriceFrom" onchange="applyFilters()">
+                <option value="">Von</option>
+                <option value="0">0 €</option>
+                <option value="2000">2.000 €</option>
+                <option value="5000">5.000 €</option>
+                <option value="10000">10.000 €</option>
+                <option value="15000">15.000 €</option>
+              </select>
+              <select class="f-sel" id="filterPriceTo" onchange="applyFilters()">
+                <option value="">Bis</option>
+                <option value="5000">5.000 €</option>
+                <option value="10000">10.000 €</option>
+                <option value="15000">15.000 €</option>
+                <option value="20000">20.000 €</option>
+                <option value="30000">30.000 €</option>
+              </select>
+            </div>
+          </div>
+          <div class="fg">
+            <label>Kraftstoffart</label>
+            <select class="f-sel" id="filterFuel" onchange="applyFilters()">
+              <option value="">Kraftstoffart wählen</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Lackfarbe</label>
+            <select class="f-sel" id="filterColor" onchange="applyFilters()">
+              <option value="">Lackfarbe wählen</option>
+            </select>
+          </div>
+          <button class="fp-reset-btn" onclick="resetFilters()">Filter zurücksetzen</button>
+        </div>
+      </aside>
+
+      <div class="grid-c">
+        <div class="grid-topbar">
+          <div class="res-count"><strong id="totalCount">0</strong> Fahrzeuge gefunden</div>
+          <div class="tb-act">
+            <label class="sort-label" for="sortSelect">Sortieren:</label>
+            <select class="sort-sel" id="sortSelect" onchange="sortCars()">
+              <option value="newest">Neueste Inserate</option>
+              <option value="price-asc">Preis: Niedrig → Hoch</option>
+              <option value="price-desc">Preis: Hoch → Niedrig</option>
+              <option value="km-asc">Kilometer: Niedrig → Hoch</option>
+              <option value="year-desc">EZ: Neueste zuerst</option>
+            </select>
+          </div>
+        </div>
+        <div class="car-grid" id="carGrid"></div>
+        <div class="pag" id="pagination"></div>
+      </div>
+    </div>
+
+    <button class="mob-fb" onclick="document.querySelector('.side').style.display='block'">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4h12M4 8h8M6 12h4"/></svg>
+      Filter
+    </button>
+  </div>
+
+  <!-- ═══ DETAIL VIEW ═══ -->
+  <div id="detailView" class="hidden">
+    <div class="detail" id="detailContent"></div>
+  </div>
+
+  <!-- ═══ KONTAKT VIEW ═══ -->
+  <div id="kontaktView" class="hidden" id="kontaktContent"></div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="ft-in">
+      <div class="ft-brand">
+        <div class="logo" onclick="goHome()">
+          <div class="logo-i">M</div>
+          <div class="logo-t">Mango<span>Auto</span></div>
+        </div>
+        <p>Dein Auto aus Korea. Wir importieren hochwertige Fahrzeuge direkt aus Korea und begleiten dich durch den gesamten Prozess.</p>
+      </div>
+      <div class="ft-col"><h4>Navigation</h4><a href="#">Fahrzeugkatalog</a><a href="#">Fahrzeug-Check</a><a href="#">Unser Service</a><a href="#">FAQ</a><a href="#">Kontakt</a></div>
+      <div class="ft-col"><h4>Rechtliches</h4><a href="#">Impressum</a><a href="#">Datenschutz</a></div>
+      <div class="ft-col"><h4>Kontakt</h4><a>MangoAuto GmbH</a><a>Berlin, Deutschland</a><a href="tel:+4917642134338">Tel: +49 176 421 34338</a><a href="mailto:info@mangoauto.de">info@mangoauto.de</a></div>
+    </div>
+    <div class="ft-bot">
+      <span>Vermittlung koreanischer Fahrzeuge — keine Gewährleistung.</span>
+      <div><span>© 2026 MangoAuto GmbH</span><a href="#">Impressum</a><a href="#">Datenschutz</a></div>
+    </div>
+  </footer>
+
+  <!-- ═══ CHECK MODAL ═══ -->
+  <div id="checkModal" class="modal-overlay hidden" onclick="closeCheckModal(event)">
+    <div class="modal-box">
+      <div class="modal-hdr">
+        <h2 class="modal-title">So funktioniert der Import</h2>
+        <button class="modal-close" onclick="closeCheckModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <ol class="import-steps">
+          <li><div class="step-num">1</div><div><strong>Fahrzeug auswählen</strong><p>Durchsuche unseren Katalog und wähle dein Wunschfahrzeug.</p></div></li>
+          <li><div class="step-num">2</div><div><strong>Fahrzeug-Check beauftragen</strong><p>Wir lassen das Fahrzeug vor Ort in Korea von einem unabhängigen Gutachter prüfen.</p></div></li>
+          <li><div class="step-num">3</div><div><strong>Check-Ergebnis erhalten</strong><p>Du erhältst einen detaillierten Prüfbericht mit Fotos und Bewertung.</p></div></li>
+          <li><div class="step-num">4</div><div><strong>Kaufentscheidung &amp; Rechnung</strong><p>Bei positivem Ergebnis erstellen wir dir eine verbindliche Rechnung.</p></div></li>
+          <li><div class="step-num">5</div><div><strong>Zahlung &amp; Abwicklung</strong><p>Nach Zahlungseingang kümmern wir uns um Kauf und Export aus Korea.</p></div></li>
+          <li><div class="step-num">6</div><div><strong>Verschiffung</strong><p>Das Fahrzeug wird per Seetransport nach Rotterdam verschifft.</p></div></li>
+          <li><div class="step-num">7</div><div><strong>Ankunft in Europa (8–12 Wochen)</strong><p>Abholung in Rotterdam oder Lieferung nach Deutschland. Optional: TÜV-Abnahme durch uns.</p></div></li>
+        </ol>
+        <label class="modal-check-label">
+          <input type="checkbox" id="importUnderstood">
+          Ich habe den Ablauf verstanden
+        </label>
+        <p class="modal-faq-note">Viele Fragen, die unsere Kunden häufig stellen, haben wir bereits auf unserer <a href="#">FAQ-Seite</a> ausführlich beantwortet — es lohnt sich, dort vorbeizuschauen.</p>
+      </div>
+      <div class="modal-ftr">
+        <a class="modal-faq-link" href="#">Erst FAQ lesen</a>
+        <button class="btn-primary" style="flex:1;max-width:220px;display:inline-flex;align-items:center;justify-content:center;gap:8px" onclick="window.open('https://wa.me/4917642134338')"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> WhatsApp schreiben</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ LIGHTBOX ═══ -->
+  <div id="lightbox" class="lightbox hidden" onclick="lbBgClick(event)">
+    <div class="lb-header">
+      <span class="lb-count" id="lbCount">1 / 0</span>
+      <button class="lb-close" onclick="closeLightbox()">✕</button>
+    </div>
+    <div class="lb-main">
+      <button class="lb-nav lb-prev" onclick="lbNav(-1)">‹</button>
+      <img id="lbImg" src="" alt="">
+      <button class="lb-nav lb-next" onclick="lbNav(1)">›</button>
+    </div>
+    <div class="lb-thumbs" id="lbThumbs"></div>
+  </div>
+
+  <script src="app.js?v=24"></script>
+</body>
+</html>
