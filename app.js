@@ -1095,6 +1095,37 @@ function renderService() {
   `;
 }
 
+// ═══════════════════════════════════════════════════════════════
+// MOBILE MENU
+// ═══════════════════════════════════════════════════════════════
+function toggleMobileMenu() {
+  const drawer = document.getElementById('mobNavDrawer');
+  const overlay = document.getElementById('mobNavOverlay');
+  const isOpen = drawer.classList.contains('open');
+  if (isOpen) {
+    closeMobileMenu();
+  } else {
+    drawer.classList.add('open');
+    overlay.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeMobileMenu() {
+  const drawer = document.getElementById('mobNavDrawer');
+  const overlay = document.getElementById('mobNavOverlay');
+  drawer.classList.remove('open');
+  overlay.classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const drawer = document.getElementById('mobNavDrawer');
+    if (drawer && drawer.classList.contains('open')) closeMobileMenu();
+  }
+});
+
 window.addEventListener('hashchange', handleRoute);
 window.addEventListener('resize', () => {
   scaleInspIframe();

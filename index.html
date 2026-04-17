@@ -6,7 +6,7 @@
   <title>Fahrzeugkatalog | MangoAuto Deutschland</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=27">
+  <link rel="stylesheet" href="style.css?v=28">
 </head>
 <body>
 
@@ -21,11 +21,32 @@
         <a href="#/service" onclick="goService();return false">Unser Service</a>
         <a href="#/kontakt" class="nav-cta" onclick="goKontakt();return false">Kontakt</a>
       </nav>
-      <button class="mob-menu" onclick="alert('Mobile Menü kommt bald!')">
-        <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h18M4 13h18M4 19h18"/></svg>
+      <button class="mob-menu" id="mobMenuBtn" onclick="toggleMobileMenu()" aria-label="Menü öffnen">
+        <svg id="mobMenuIcon" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h18M4 13h18M4 19h18"/></svg>
       </button>
     </div>
   </header>
+
+  <!-- ═══ MOBILE NAV DRAWER ═══ -->
+  <div id="mobNavOverlay" class="mob-nav-overlay hidden" onclick="closeMobileMenu()"></div>
+  <div id="mobNavDrawer" class="mob-nav-drawer">
+    <div class="mob-nav-top">
+      <div class="ft-wordmark">MANGOCAR</div>
+      <button class="mob-nav-close" onclick="closeMobileMenu()" aria-label="Menü schließen">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 5l14 14M19 5L5 19"/></svg>
+      </button>
+    </div>
+    <nav class="mob-nav-links">
+      <a href="#" onclick="closeMobileMenu();goHome();return false">Fahrzeugkatalog</a>
+      <a href="#/check" onclick="closeMobileMenu();goCheck();return false">Fahrzeug-Check</a>
+      <a href="#/service" onclick="closeMobileMenu();goService();return false">Unser Service</a>
+      <a href="#/kontakt" class="mob-nav-cta" onclick="closeMobileMenu();goKontakt();return false">Kontakt</a>
+    </nav>
+    <div class="mob-nav-footer">
+      <a href="tel:+4917642134338">+49 176 421 34338</a>
+      <a href="mailto:info@mangoauto.de">info@mangoauto.de</a>
+    </div>
+  </div>
 
   <!-- ═══ CATALOG VIEW ═══ -->
   <div id="catalogView">
@@ -214,6 +235,6 @@
     <div class="lb-thumbs" id="lbThumbs"></div>
   </div>
 
-  <script src="app.js?v=27"></script>
+  <script src="app.js?v=28"></script>
 </body>
 </html>

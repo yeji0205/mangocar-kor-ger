@@ -37,7 +37,25 @@ nav{display:flex;align-items:center;gap:28px}
 nav a{color:var(--t2);font-size:18px;font-weight:500;transition:color var(--tr)}nav a:hover,nav a.act{color:var(--orange)}
 .nav-cta{background:var(--orange)!important;color:#111!important;padding:9px 20px;border-radius:var(--r-sm);font-weight:600!important}
 .nav-cta:hover{background:var(--orange-h)!important}
-.mob-menu{display:none;background:none;border:none;cursor:pointer;color:var(--t1)}
+.mob-menu{display:none;background:none;border:none;cursor:pointer;color:var(--t1);padding:4px}
+
+/* ─── MOBILE NAV DRAWER ─── */
+.mob-nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:199;backdrop-filter:blur(2px);transition:opacity var(--tr)}
+.mob-nav-overlay.hidden{display:none}
+.mob-nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,88vw);background:var(--bg2);z-index:200;display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(0,0,0,.18);transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.mob-nav-drawer.open{transform:translateX(0)}
+.mob-nav-top{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 16px;border-bottom:1px solid var(--brd)}
+.mob-nav-close{background:none;border:none;cursor:pointer;color:var(--t2);padding:4px;border-radius:6px;transition:color var(--tr)}
+.mob-nav-close:hover{color:var(--t1)}
+.mob-nav-links{display:flex;flex-direction:column;padding:12px 8px;flex:1}
+.mob-nav-links a{display:block;padding:14px 16px;font-size:18px;font-weight:500;color:var(--t2);border-radius:var(--r-sm);transition:background var(--tr),color var(--tr)}
+.mob-nav-links a:hover{background:var(--bg3);color:var(--t1)}
+.mob-nav-links a.act,.mob-nav-links a:hover{color:var(--orange)}
+.mob-nav-cta{background:var(--orange)!important;color:#111!important;font-weight:600!important;margin-top:8px;text-align:center}
+.mob-nav-cta:hover{background:var(--orange-h)!important;color:#111!important}
+.mob-nav-footer{padding:16px 20px;border-top:1px solid var(--brd);display:flex;flex-direction:column;gap:6px}
+.mob-nav-footer a{font-size:14px;color:var(--t3)}
+.mob-nav-footer a:hover{color:var(--orange)}
 
 /* ─── NOTIFY BAR ─── */
 .nbar{background:linear-gradient(135deg,var(--orange),#E68A00);color:#111;text-align:center;padding:9px 24px;font-size:15px;font-weight:600}
