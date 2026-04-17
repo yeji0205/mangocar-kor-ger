@@ -4,7 +4,14 @@
 let allCars = [];
 let filteredCars = [];
 let currentPage = 1;
-const perPage = 20;
+
+const ROWS_PER_PAGE = 7;
+function getColumns() {
+  if (window.innerWidth <= 480) return 1;
+  if (window.innerWidth <= 768) return 2;
+  return 3;
+}
+let perPage = getColumns() * ROWS_PER_PAGE;
 
 // Load data
 async function loadData() {
@@ -604,7 +611,7 @@ document.addEventListener('keydown', e => {
 // ROUTING
 // ═══════════════════════════════════════════════════════════════
 function showView(active) {
-  ['catalogView','detailView','kontaktView'].forEach(id => {
+  ['catalogView','detailView','kontaktView','serviceView','checkView'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.classList.toggle('hidden', id !== active);
   });
@@ -622,6 +629,14 @@ function handleRoute() {
     showView('kontaktView');
     renderKontakt();
     window.scrollTo(0, 0);
+  } else if (hash === '#/service') {
+    showView('serviceView');
+    renderService();
+    window.scrollTo(0, 0);
+  } else if (hash === '#/check') {
+    showView('checkView');
+    renderCheck();
+    window.scrollTo(0, 0);
   } else {
     showView('catalogView');
     document.title = 'Fahrzeugkatalog | MangoAuto Deutschland';
@@ -636,6 +651,18 @@ function goHome() {
 
 function goKontakt() {
   window.location.hash = '#/kontakt';
+  handleRoute();
+  window.scrollTo(0, 0);
+}
+
+function goService() {
+  window.location.hash = '#/service';
+  handleRoute();
+  window.scrollTo(0, 0);
+}
+
+function goCheck() {
+  window.location.hash = '#/check';
   handleRoute();
   window.scrollTo(0, 0);
 }
@@ -723,8 +750,361 @@ function renderKontakt() {
   `;
 }
 
+function renderCheck() {
+  document.title = 'Fahrzeug-Check | MangoAuto Deutschland';
+  document.getElementById('checkView').innerHTML = `
+
+    <div class="svc-banner">
+      <div class="svc-banner-in">
+        <nav class="kont-bread">
+          <a onclick="goHome();return false" href="#">Startseite</a>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M6 4l4 4-4 4"/></svg>
+          <span>Fahrzeug-Check</span>
+        </nav>
+        <h1 class="svc-banner-title">Fahrzeug-Check</h1>
+        <p class="svc-banner-sub">Lass dein Wunschfahrzeug vor dem Kauf von einem unabhängigen Gutachter vor Ort in Korea prüfen — für mehr Sicherheit und Transparenz.</p>
+      </div>
+    </div>
+
+    <div class="svc-wrap">
+
+      <!-- ── Was ist der Fahrzeug-Check? ── -->
+      <section class="svc-section">
+        <h2 class="svc-section-title">Was ist der Fahrzeug-Check?</h2>
+        <p class="chk-intro">Bevor du ein Fahrzeug aus Korea kaufst, lassen wir es von einem zertifizierten, unabhängigen Gutachter direkt vor Ort in Korea inspizieren. Du erhältst einen detaillierten Prüfbericht mit Fotos, technischer Bewertung und Zustandsbeschreibung — bevor du eine Kaufentscheidung triffst.</p>
+      </section>
+
+      <!-- ── Was wird geprüft? ── -->
+      <section class="svc-section">
+        <h2 class="svc-section-title">Was wird geprüft?</h2>
+        <p class="svc-section-sub">Der Gutachter prüft das Fahrzeug in allen wichtigen Bereichen</p>
+        <div class="chk-grid">
+          <div class="chk-item">
+            <div class="chk-icon">🔩</div>
+            <div>
+              <strong>Motor &amp; Getriebe</strong>
+              <p>Sichtprüfung auf Öl- und Flüssigkeitslecks, Laufgeräusche, Funktionstest</p>
+            </div>
+          </div>
+          <div class="chk-item">
+            <div class="chk-icon">🚗</div>
+            <div>
+              <strong>Karosserie &amp; Lack</strong>
+              <p>Kontrolle auf Unfallschäden, Rostansätze, Lackschäden und Spaltmaße</p>
+            </div>
+          </div>
+          <div class="chk-item">
+            <div class="chk-icon">⚡</div>
+            <div>
+              <strong>Elektrik &amp; Elektronik</strong>
+              <p>Prüfung aller elektrischen Systeme, Beleuchtung, Assistenzsysteme</p>
+            </div>
+          </div>
+          <div class="chk-item">
+            <div class="chk-icon">🛑</div>
+            <div>
+              <strong>Bremsen &amp; Fahrwerk</strong>
+              <p>Zustand der Bremsbeläge, Bremsscheiben, Stoßdämpfer und Lenkung</p>
+            </div>
+          </div>
+          <div class="chk-item">
+            <div class="chk-icon">🪑</div>
+            <div>
+              <strong>Innenraum</strong>
+              <p>Zustand von Sitzen, Verkleidungen, Armaturenbrett und Klimaanlage</p>
+            </div>
+          </div>
+          <div class="chk-item">
+            <div class="chk-icon">📋</div>
+            <div>
+              <strong>MIT-Prüfbericht</strong>
+              <p>Auswertung des offiziellen MANGOCAR Inspektionsberichts inkl. Unfallhistorie</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Was bekommst du? ── -->
+      <section class="svc-section">
+        <h2 class="svc-section-title">Was bekommst du?</h2>
+        <div class="chk-includes">
+          <div class="chk-include-item">✅ Detaillierter schriftlicher Prüfbericht</div>
+          <div class="chk-include-item">✅ Fotos des Fahrzeugs (Außen, Innen, Motor)</div>
+          <div class="chk-include-item">✅ Bewertung des Gesamtzustands</div>
+          <div class="chk-include-item">✅ Auswertung der Unfallhistorie</div>
+          <div class="chk-include-item">✅ Empfehlung: Kaufen oder nicht kaufen</div>
+          <div class="chk-include-item">✅ Persönliche Beratung durch unser Team</div>
+        </div>
+      </section>
+
+      <!-- ── Ablauf ── -->
+      <section class="svc-section">
+        <h2 class="svc-section-title">So läuft der Check ab</h2>
+        <p class="svc-section-sub">In 4 einfachen Schritten zum Prüfbericht</p>
+        <div class="svc-steps">
+          <div class="svc-step">
+            <div class="svc-step-num">1</div>
+            <div class="svc-step-body">
+              <h4>Fahrzeug auswählen</h4>
+              <p>Wähle ein Fahrzeug aus unserem Katalog und teile uns die Fahrzeug-ID mit.</p>
+            </div>
+          </div>
+          <div class="svc-step">
+            <div class="svc-step-num">2</div>
+            <div class="svc-step-body">
+              <h4>Check beauftragen &amp; bezahlen</h4>
+              <p>Kontaktiere uns per WhatsApp oder E-Mail. Wir bestätigen den Auftrag und du bezahlst die Check-Gebühr.</p>
+            </div>
+          </div>
+          <div class="svc-step">
+            <div class="svc-step-num">3</div>
+            <div class="svc-step-body">
+              <h4>Inspektion vor Ort</h4>
+              <p>Unser unabhängiger Gutachter in Korea inspiziert das Fahrzeug gründlich innerhalb weniger Werktage.</p>
+            </div>
+          </div>
+          <div class="svc-step">
+            <div class="svc-step-num">4</div>
+            <div class="svc-step-body">
+              <h4>Prüfbericht erhalten</h4>
+              <p>Du erhältst den vollständigen Bericht und kannst anschließend in Ruhe entscheiden, ob du das Fahrzeug kaufst.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Preis ── -->
+      <section class="svc-section">
+        <h2 class="svc-section-title">Kosten</h2>
+        <div class="chk-price-box">
+          <div class="chk-price-main">
+            <span class="chk-price-label">Fahrzeug-Check</span>
+            <span class="chk-price-val">ab 99 €</span>
+          </div>
+          <p class="chk-price-note">Der genaue Preis richtet sich nach Fahrzeugtyp und Standort. Kontaktiere uns für ein individuelles Angebot.</p>
+        </div>
+      </section>
+
+      <!-- ── Disclaimer ── -->
+      <section class="svc-section">
+        <div class="svc-disclaimer">
+          <div class="svc-disclaimer-icon">⚠️</div>
+          <div>
+            <strong>Wichtiger Hinweis</strong>
+            <p>Der Fahrzeug-Check dient als Entscheidungshilfe. Er ersetzt keine offizielle TÜV-Abnahme in Deutschland. MangoAuto agiert als Vermittler — eine Gewährleistung ist ausgeschlossen.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CTA ── -->
+      <section class="svc-cta-section">
+        <h2>Bereit für deinen Fahrzeug-Check?</h2>
+        <p>Wähle dein Wunschfahrzeug und kontaktiere uns — wir kümmern uns um den Rest.</p>
+        <div class="svc-cta-btns">
+          <button class="btn-primary svc-cta-btn" onclick="goHome()">Zum Fahrzeugkatalog</button>
+          <button class="btn-secondary svc-cta-btn" onclick="window.open('https://wa.me/4917642134338')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:6px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            Per WhatsApp anfragen
+          </button>
+        </div>
+      </section>
+
+    </div>
+  `;
+}
+
+function renderService() {
+  document.title = 'Unser Service | MangoAuto Deutschland';
+  document.getElementById('serviceView').innerHTML = `
+
+    <div class="svc-banner">
+      <div class="svc-banner-in">
+        <nav class="kont-bread">
+          <a onclick="goHome();return false" href="#">Startseite</a>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M6 4l4 4-4 4"/></svg>
+          <span>Unser Service</span>
+        </nav>
+        <h1 class="svc-banner-title">Unser Service</h1>
+        <p class="svc-banner-sub">Von der Fahrzeugsuche bis zur TÜV-Abnahme. Wir begleiten dich durch den gesamten Importprozess.</p>
+      </div>
+    </div>
+
+    <div class="svc-wrap">
+
+      <!-- ── 6 Service Cards ── -->
+      <section class="svc-section">
+        <h2 class="svc-section-title">Was wir bieten</h2>
+        <div class="svc-cards">
+          <div class="svc-card">
+            <div class="svc-card-icon">🔍</div>
+            <h3>Fahrzeugsuche</h3>
+            <p>Durchsuche unseren umfangreichen Katalog mit täglich aktualisierten Fahrzeugen direkt aus Korea.</p>
+          </div>
+          <div class="svc-card">
+            <div class="svc-card-icon">🔧</div>
+            <h3>Fahrzeug-Check</h3>
+            <p>Unabhängige Vorort-Inspektion durch zertifizierte Gutachter in Korea — mit detailliertem Prüfbericht und Fotos.</p>
+          </div>
+          <div class="svc-card">
+            <div class="svc-card-icon">🚢</div>
+            <h3>Sichere Abwicklung</h3>
+            <p>Professionelle Kaufabwicklung inklusive Verschiffung nach Rotterdam und vollständiger Zollabfertigung.</p>
+          </div>
+          <div class="svc-card">
+            <div class="svc-card-icon">✅</div>
+            <h3>TÜV-Service</h3>
+            <p>Kompletter Zulassungsservice in Deutschland — inklusive Lieferung und TÜV-Abnahme auf Wunsch.</p>
+          </div>
+          <div class="svc-card">
+            <div class="svc-card-icon">🔔</div>
+            <h3>Fahrzeug-Alarm</h3>
+            <p>Tägliche Benachrichtigung, sobald ein passendes Fahrzeug in unserem Katalog verfügbar ist.</p>
+          </div>
+          <div class="svc-card">
+            <div class="svc-card-icon">✨</div>
+            <h3>Aufbereitung</h3>
+            <p>Professionelle Innen- und Außenaufbereitung deines Fahrzeugs vor der Übergabe — auf Wunsch.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Import Process ── -->
+      <section class="svc-section">
+        <h2 class="svc-section-title">Der Importprozess</h2>
+        <p class="svc-section-sub">In 7 Schritten zu deinem Fahrzeug aus Korea</p>
+        <div class="svc-steps">
+          <div class="svc-step">
+            <div class="svc-step-num">1</div>
+            <div class="svc-step-body">
+              <h4>Fahrzeug auswählen</h4>
+              <p>Durchsuche unseren Katalog und wähle dein Wunschfahrzeug aus.</p>
+            </div>
+          </div>
+          <div class="svc-step">
+            <div class="svc-step-num">2</div>
+            <div class="svc-step-body">
+              <h4>Fahrzeug-Check beauftragen</h4>
+              <p>Wir lassen das Fahrzeug vor Ort in Korea von einem unabhängigen Gutachter prüfen.</p>
+            </div>
+          </div>
+          <div class="svc-step">
+            <div class="svc-step-num">3</div>
+            <div class="svc-step-body">
+              <h4>Check-Ergebnis erhalten</h4>
+              <p>Du erhältst einen detaillierten Prüfbericht mit Fotos und Zustandsbewertung.</p>
+            </div>
+          </div>
+          <div class="svc-step">
+            <div class="svc-step-num">4</div>
+            <div class="svc-step-body">
+              <h4>Kaufentscheidung &amp; Rechnung</h4>
+              <p>Bei positivem Ergebnis erstellen wir eine verbindliche Rechnung für dich.</p>
+            </div>
+          </div>
+          <div class="svc-step">
+            <div class="svc-step-num">5</div>
+            <div class="svc-step-body">
+              <h4>Zahlung &amp; Abwicklung</h4>
+              <p>Nach Zahlungseingang übernehmen wir Kauf und Exportabwicklung in Korea.</p>
+            </div>
+          </div>
+          <div class="svc-step">
+            <div class="svc-step-num">6</div>
+            <div class="svc-step-body">
+              <h4>Verschiffung</h4>
+              <p>Dein Fahrzeug wird per Seetransport nach Rotterdam verschifft und verzollt.</p>
+            </div>
+          </div>
+          <div class="svc-step">
+            <div class="svc-step-num">7</div>
+            <div class="svc-step-body">
+              <h4>Ankunft in Europa (8–12 Wochen)</h4>
+              <p>Abholung in Rotterdam oder Lieferung nach Deutschland. Optional: TÜV-Abnahme durch uns.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Pricing Table ── -->
+      <section class="svc-section">
+        <h2 class="svc-section-title">Preisübersicht</h2>
+        <div class="svc-price-table">
+          <div class="svc-price-row svc-price-head">
+            <span>Leistung</span><span>Preis</span>
+          </div>
+          <div class="svc-price-row">
+            <div>
+              <strong>Katalogpreis</strong>
+              <p>Fahrzeugpreis inkl. Verschiffung &amp; Zollabfertigung</p>
+            </div>
+            <span class="svc-price-val">Im Angebot enthalten</span>
+          </div>
+          <div class="svc-price-row">
+            <div>
+              <strong>Fahrzeug-Check</strong>
+              <p>Unabhängige Inspektion vor Ort in Korea</p>
+            </div>
+            <span class="svc-price-val">ab 99 €</span>
+          </div>
+          <div class="svc-price-row">
+            <div>
+              <strong>TÜV-Service</strong>
+              <p>Zulassung &amp; TÜV-Abnahme in Deutschland</p>
+            </div>
+            <span class="svc-price-val">auf Anfrage</span>
+          </div>
+          <div class="svc-price-row">
+            <div>
+              <strong>Aufbereitung</strong>
+              <p>Professionelle Innen- &amp; Außenaufbereitung</p>
+            </div>
+            <span class="svc-price-val">auf Anfrage</span>
+          </div>
+          <div class="svc-price-row">
+            <div>
+              <strong>Fahrzeug-Alarm</strong>
+              <p>Benachrichtigung bei neuen Treffern</p>
+            </div>
+            <span class="svc-price-val">auf Anfrage</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Disclaimer ── -->
+      <section class="svc-section">
+        <div class="svc-disclaimer">
+          <div class="svc-disclaimer-icon">⚠️</div>
+          <div>
+            <strong>Wichtiger Hinweis</strong>
+            <p>Wir agieren ausschließlich als Vermittler zwischen dir und dem koreanischen Fahrzeugmarkt. Alle Fahrzeuge stammen aus Korea und werden direkt importiert. Eine Gewährleistung ist gemäß unseren AGB ausgeschlossen. Der Käufer trägt das Importrisiko. Bei Fragen helfen wir dir gerne weiter.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CTA ── -->
+      <section class="svc-cta-section">
+        <h2>Bereit für dein Auto aus Korea?</h2>
+        <p>Entdecke unsere aktuellen Fahrzeuge oder kontaktiere uns direkt.</p>
+        <div class="svc-cta-btns">
+          <button class="btn-primary svc-cta-btn" onclick="goHome()">Zum Fahrzeugkatalog</button>
+          <button class="btn-secondary svc-cta-btn" onclick="goKontakt()">Kontakt aufnehmen</button>
+        </div>
+      </section>
+
+    </div>
+  `;
+}
+
 window.addEventListener('hashchange', handleRoute);
-window.addEventListener('resize', scaleInspIframe);
+window.addEventListener('resize', () => {
+  scaleInspIframe();
+  const newPerPage = getColumns() * ROWS_PER_PAGE;
+  if (newPerPage !== perPage) {
+    perPage = newPerPage;
+    currentPage = 1;
+    renderGrid();
+  }
+});
 
 // ═══════════════════════════════════════════════════════════════
 // INIT
