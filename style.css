@@ -256,6 +256,10 @@ footer .logo-t{color:#E2E8F0}
 
 /* ≤768px — mobile layout */
 @media(max-width:768px){
+  .nav-in{height:64px;padding:0 16px}
+  .mob-nav-top{height:64px}
+  .fp{top:72px}
+  .det-right{top:72px}
   .hero{padding:24px 16px 16px}
   .hero h1{font-size:clamp(22px,6vw,32px)}
   .hero p{font-size:15px}
@@ -268,15 +272,18 @@ footer .logo-t{color:#E2E8F0}
   .detail{padding:16px 4%}
   .quick-stats{flex-wrap:wrap}
   .qs-item{flex:0 0 calc(33.33% - 1px);min-width:0}
-  .photo-grid{height:300px}
+  .photo-grid{height:auto;aspect-ratio:16/10}
+  .pg-strip{overflow-x:auto;flex-wrap:nowrap;padding-bottom:8px}
+  .pg-strip-th{flex:0 0 80px;min-width:80px}
   .nbar{font-size:13px;padding:8px 16px}
   .pp-price{font-size:28px}
 }
 
 /* ≤640px — narrow phones */
 @media(max-width:640px){
-  .photo-grid{height:240px;border-radius:var(--r-md)}
+  .photo-grid{aspect-ratio:4/3;border-radius:var(--r-md)}
   .pg-strip{gap:4px}
+  .pg-strip-th{flex:0 0 68px;min-width:68px}
   .lb-main{padding:0 48px}
   .lb-nav{width:36px;height:36px;font-size:18px}
   .insp-diagram-grid{grid-template-columns:1fr 1fr}
@@ -287,8 +294,9 @@ footer .logo-t{color:#E2E8F0}
   .cc{flex:0 0 100%}
   .det-cta{flex-direction:column}
   .detail{padding:12px 3%}
-  .photo-grid{height:200px}
+  .photo-grid{aspect-ratio:4/3}
   .pg-strip{gap:3px}
+  .pg-strip-th{flex:0 0 58px;min-width:58px}
   .qs-item{flex:0 0 50%}
   .spec-label{width:50%;padding:9px 12px}
   .spec-val{width:50%;padding:9px 12px}
