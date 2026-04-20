@@ -272,7 +272,6 @@ footer .logo-t{color:#E2E8F0}
   .detail{padding:16px 4%}
   .quick-stats{flex-wrap:wrap}
   .qs-item{flex:0 0 calc(33.33% - 1px);min-width:0}
-  .photo-grid{height:auto;aspect-ratio:4/3}
   .pg-strip{overflow:hidden;flex-wrap:nowrap;padding-bottom:0}
   .nbar{font-size:13px;padding:8px 16px}
   .pp-price{font-size:28px}
@@ -280,7 +279,6 @@ footer .logo-t{color:#E2E8F0}
 
 /* ≤640px — narrow phones */
 @media(max-width:640px){
-  .photo-grid{border-radius:var(--r-md)}
   .lb-main{padding:0 48px}
   .lb-nav{width:36px;height:36px;font-size:18px}
   .insp-diagram-grid{grid-template-columns:1fr 1fr}
@@ -309,6 +307,9 @@ footer .logo-t{color:#E2E8F0}
 
 /* ─── PHOTO GRID ─── */
 .photo-grid{position:relative;border-radius:var(--r-lg);overflow:hidden;height:500px;background:var(--bg3)}
+@media(max-width:768px){
+  .photo-grid{height:auto;aspect-ratio:4/3}
+}
 .pg-main{position:relative;width:100%;height:100%;overflow:hidden;cursor:pointer}
 .pg-main img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease;display:block}
 .pg-main:hover img{transform:scale(1.03)}
