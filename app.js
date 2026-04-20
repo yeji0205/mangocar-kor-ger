@@ -518,19 +518,19 @@ function buildPhotoGrid(images) {
 
   const stripHtml =
     images.slice(0, stripVisible).map((img, i) => `
-      <div class="pg-strip-th ${i === 0 ? 'act' : ''}" onclick="openLightbox(${i})">
+      <div class="pg-strip-th ${i === 0 ? 'act' : ''}" onclick="selectGalImg(${i})">
         <img src="${img}" loading="lazy">
       </div>`).join('') +
     (hasMore ? `
-      <div class="pg-strip-th pg-strip-more" onclick="openLightbox(${STRIP_MAX})">
+      <div class="pg-strip-th pg-strip-more" onclick="selectGalImg(${STRIP_MAX})">
         <img src="${images[STRIP_MAX]}" loading="lazy">
         <div class="pg-more-overlay"><span>+${moreCount}</span><span>mehr</span></div>
       </div>` : '');
 
   return `
     <div class="photo-grid">
-      <div class="pg-main" onclick="openLightbox(0)">
-        <img src="${images[0]}" alt="Fahrzeugfoto" loading="eager">${countBadge}
+      <div class="pg-main" id="pgMain" onclick="openLightbox(window._lbIdx||0)">
+        <img id="pgMainImg" src="${images[0]}" alt="Fahrzeugfoto" loading="eager">${countBadge}
       </div>
     </div>
     <div class="pg-strip" id="pgStrip">${stripHtml}</div>`;
@@ -559,6 +559,19 @@ document.addEventListener('keydown', e => {
 // ═══════════════════════════════════════════════════════════════
 // LIGHTBOX
 // ═══════════════════════════════════════════════════════════════
+function selectGalImg(idx) {
+  const images = window._galImages || [];
+  if (!images[idx]) return;
+  // Update main image
+  const mainImg = document.getElementById('pgMainImg');
+  if (mainImg) mainImg.src = images[idx];
+  // Track current index for lightbox
+  window._lbIdx = idx;
+  // Update active thumbnail
+  const strip = document.getElementById('pgStrip');
+  if (strip) strip.querySelectorAll('.pg-strip-th').forEach((el, i) => el.classList.toggle('act', i === idx));
+}
+
 function openLightbox(startIdx) {
   const images = window._galImages || [];
   if (!images.length) return;
