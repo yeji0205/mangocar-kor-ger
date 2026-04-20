@@ -324,7 +324,7 @@ footer .logo-t{color:#E2E8F0}
 .pg-strip-th:hover{opacity:1;border-color:var(--t3)}
 .pg-strip-th img{width:100%;height:100%;object-fit:cover;display:block}
 @media(max-width:768px){
-  .pg-strip{gap:0;padding:4px 0 0}
+  .pg-strip{gap:1px;padding:4px 0 0}
   .pg-strip-th{min-width:0;border:none;border-radius:0}
   .pg-strip-th.act{outline:2px solid var(--orange);outline-offset:-2px;border:none}
   .pg-strip-th:hover{border:none}
