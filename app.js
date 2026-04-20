@@ -396,7 +396,7 @@ function renderDetail(carId) {
 
   // Scroll page to top, then scale + pre-scroll the inspection iframe wrapper
   window.scrollTo({ top: 0, behavior: 'instant' });
-  requestAnimationFrame(scaleInspIframe);
+  requestAnimationFrame(() => { scaleInspIframe(); updateStripArrows(); });
 }
 
 function scaleInspIframe() {
@@ -509,23 +509,13 @@ function buildPhotoGrid(images) {
 
   const countBadge = `<div class="pg-count">📷 ${images.length} Foto${images.length !== 1 ? 's' : ''}</div>`;
 
-  // On mobile show 5 thumbs + 1 "+N mehr" slot = 6 total
-  // On desktop show 6 thumbs + 1 "+N mehr" slot = 7 total
-  const STRIP_MAX = window.innerWidth <= 768 ? 5 : 6;
-  const hasMore = images.length > STRIP_MAX + 1;
-  const stripVisible = hasMore ? STRIP_MAX : images.length;
-  const moreCount = images.length - STRIP_MAX - 1;
-
-  const stripHtml =
-    images.slice(0, stripVisible).map((img, i) => `
+  // Show ALL thumbnails — arrows handle overflow navigation
+  const stripHtml = images.map((img, i) => `
       <div class="pg-strip-th ${i === 0 ? 'act' : ''}" onclick="selectGalImg(${i})">
         <img src="${img}" loading="lazy">
-      </div>`).join('') +
-    (hasMore ? `
-      <div class="pg-strip-th pg-strip-more" onclick="selectGalImg(${STRIP_MAX})">
-        <img src="${images[STRIP_MAX]}" loading="lazy">
-        <div class="pg-more-overlay"><span>+${moreCount}</span><span>mehr</span></div>
-      </div>` : '');
+      </div>`).join('');
+
+  const hasMultiple = images.length > 1;
 
   return `
     <div class="photo-grid">
@@ -533,7 +523,11 @@ function buildPhotoGrid(images) {
         <img id="pgMainImg" src="${images[0]}" alt="Fahrzeugfoto" loading="eager">${countBadge}
       </div>
     </div>
-    <div class="pg-strip" id="pgStrip">${stripHtml}</div>`;
+    <div class="pg-strip-wrap">
+      <button class="pg-strip-btn pg-strip-left hidden" id="pgStripLeft" onclick="scrollStrip(-1)">&#8249;</button>
+      <div class="pg-strip" id="pgStrip" onscroll="updateStripArrows()">${stripHtml}</div>
+      <button class="pg-strip-btn pg-strip-right${hasMultiple ? '' : ' hidden'}" id="pgStripRight" onclick="scrollStrip(1)">&#8250;</button>
+    </div>`;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -562,14 +556,33 @@ document.addEventListener('keydown', e => {
 function selectGalImg(idx) {
   const images = window._galImages || [];
   if (!images[idx]) return;
-  // Update main image
   const mainImg = document.getElementById('pgMainImg');
   if (mainImg) mainImg.src = images[idx];
-  // Track current index for lightbox
   window._lbIdx = idx;
-  // Update active thumbnail
   const strip = document.getElementById('pgStrip');
-  if (strip) strip.querySelectorAll('.pg-strip-th').forEach((el, i) => el.classList.toggle('act', i === idx));
+  if (strip) {
+    strip.querySelectorAll('.pg-strip-th').forEach((el, i) => el.classList.toggle('act', i === idx));
+    const active = strip.querySelectorAll('.pg-strip-th')[idx];
+    if (active) active.scrollIntoView({ behavior:'smooth', block:'nearest', inline:'center' });
+    updateStripArrows();
+  }
+}
+
+function scrollStrip(dir) {
+  const strip = document.getElementById('pgStrip');
+  if (!strip) return;
+  const th = strip.querySelector('.pg-strip-th');
+  const step = th ? (th.offsetWidth + 2) * 3 : 200;
+  strip.scrollBy({ left: dir * step, behavior: 'smooth' });
+}
+
+function updateStripArrows() {
+  const strip = document.getElementById('pgStrip');
+  if (!strip) return;
+  const left  = document.getElementById('pgStripLeft');
+  const right = document.getElementById('pgStripRight');
+  if (left)  left.classList.toggle('hidden',  strip.scrollLeft < 1);
+  if (right) right.classList.toggle('hidden', strip.scrollLeft >= strip.scrollWidth - strip.clientWidth - 1);
 }
 
 function openLightbox(startIdx) {
