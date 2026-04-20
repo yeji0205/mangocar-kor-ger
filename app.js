@@ -511,7 +511,7 @@ function buildPhotoGrid(images) {
     (hasMore ? `
       <div class="pg-strip-th pg-strip-more" onclick="openLightbox(${STRIP_MAX})">
         <img src="${images[STRIP_MAX]}" loading="lazy">
-        <div class="pg-more-overlay">+${moreCount} mehr</div>
+        <div class="pg-more-overlay"><span>+${moreCount}</span><span>mehr</span></div>
       </div>` : '');
 
   return `

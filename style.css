@@ -315,7 +315,7 @@ footer .logo-t{color:#E2E8F0}
 .pg-count{position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,.65);color:#fff;padding:5px 14px;border-radius:20px;font-size:14px;font-weight:600;backdrop-filter:blur(4px);pointer-events:none}
 /* side stacked thumbnails removed — single main image only */
 /* overlay on the "+N mehr" slot — pointer-events:none so clicks reach the parent */
-.pg-more-overlay{position:absolute;inset:0;background:rgba(0,0,0,.52);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700;font-family:'Outfit',sans-serif;transition:background .2s;pointer-events:none}
+.pg-more-overlay{position:absolute;inset:0;background:rgba(0,0,0,.52);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;font-family:'Outfit',sans-serif;line-height:1.2;text-align:center;transition:background .2s;pointer-events:none}
 
 /* Thumbnail strip — thumbnails fill the full width responsively */
 .pg-strip{display:flex;gap:6px;padding:10px 0 4px}
