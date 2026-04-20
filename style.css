@@ -272,7 +272,7 @@ footer .logo-t{color:#E2E8F0}
   .detail{padding:16px 4%}
   .quick-stats{flex-wrap:wrap}
   .qs-item{flex:0 0 calc(33.33% - 1px);min-width:0}
-  .photo-grid{height:auto;aspect-ratio:16/9}
+  .photo-grid{height:auto;aspect-ratio:9/16}
   .pg-strip{overflow:hidden;flex-wrap:nowrap;padding-bottom:0}
   .nbar{font-size:13px;padding:8px 16px}
   .pp-price{font-size:28px}
