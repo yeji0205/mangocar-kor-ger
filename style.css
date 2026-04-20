@@ -306,9 +306,9 @@ footer .logo-t{color:#E2E8F0}
 .cc:nth-child(7){animation-delay:.28s}.cc:nth-child(8){animation-delay:.32s}.cc:nth-child(9){animation-delay:.36s}
 
 /* ─── PHOTO GRID ─── */
-.photo-grid{position:relative;border-radius:var(--r-lg);overflow:hidden;height:500px;background:var(--bg3)}
-@media(max-width:1024px){
-  .photo-grid{height:auto;aspect-ratio:4/3}
+.photo-grid{position:relative;border-radius:var(--r-lg);overflow:hidden;height:auto;aspect-ratio:4/3;background:var(--bg3)}
+@media(min-width:1280px){
+  .photo-grid{aspect-ratio:unset;height:500px}
 }
 .pg-main{position:relative;width:100%;height:100%;overflow:hidden;cursor:pointer}
 .pg-main img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease;display:block}
