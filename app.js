@@ -496,8 +496,9 @@ function buildPhotoGrid(images) {
 
   const countBadge = `<div class="pg-count">📷 ${images.length} Foto${images.length !== 1 ? 's' : ''}</div>`;
 
-  // Thumbnail strip: show first 7 normally, 8th slot shows "+N mehr"
-  const STRIP_MAX = 6;
+  // On mobile show 5 thumbs + 1 "+N mehr" slot = 6 total
+  // On desktop show 6 thumbs + 1 "+N mehr" slot = 7 total
+  const STRIP_MAX = window.innerWidth <= 768 ? 5 : 6;
   const hasMore = images.length > STRIP_MAX + 1;
   const stripVisible = hasMore ? STRIP_MAX : images.length;
   const moreCount = images.length - STRIP_MAX - 1;

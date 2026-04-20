@@ -275,7 +275,6 @@ footer .logo-t{color:#E2E8F0}
   .photo-grid{height:auto;aspect-ratio:16/10}
   .pg-strip{overflow-x:auto;flex-wrap:nowrap;padding-bottom:8px}
   .pg-strip-th{flex:0 0 80px;min-width:80px}
-  .pg-strip-th:nth-child(n+7){display:none}
   .nbar{font-size:13px;padding:8px 16px}
   .pp-price{font-size:28px}
 }
