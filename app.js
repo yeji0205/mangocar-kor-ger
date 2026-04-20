@@ -113,10 +113,22 @@ function renderGrid() {
   document.getElementById('totalCount').textContent = filteredCars.length.toLocaleString('de-DE');
 
   const grid = document.getElementById('carGrid');
-  grid.innerHTML = page.map((c, i) => `
+  grid.innerHTML = page.map((c, i) => {
+    const slides = (c.images && c.images.length) ? c.images.slice(0, 4) : (c.thumbnail ? [c.thumbnail] : []);
+    const showNav = slides.length > 1;
+    const slidesHtml = slides.map((img, si) =>
+      `<img class="cc-slide-img${si === 0 ? ' act' : ''}" src="${img}" alt="${c.brand} ${c.model}" loading="lazy" onerror="this.style.display='none'">`
+    ).join('');
+    const dotsHtml = showNav ? `<div class="cc-dots">${slides.map((_, si) => `<span class="cc-dot${si === 0 ? ' act' : ''}"></span>`).join('')}</div>` : '';
+    const arrowsHtml = showNav ? `
+      <button class="cc-arr cc-prev" onclick="ccNav(event,this,-1)">&#8249;</button>
+      <button class="cc-arr cc-next" onclick="ccNav(event,this,1)">&#8250;</button>` : '';
+    return `
     <a href="#/catalog/${c.id}" class="cc" style="animation-delay:${i*0.04}s">
       <div class="cc-img">
-        <img src="${c.thumbnail}" alt="${c.brand} ${c.model}" loading="lazy" onerror="this.parentElement.style.background='#333'">
+        ${slidesHtml}
+        ${arrowsHtml}
+        ${dotsHtml}
         <div class="badges">
           ${c.inspected ? '<span class="badge b-insp">✓ Geprüft</span>' : ''}
           ${c.booked ? '<span class="badge b-book">Reserviert</span>' : ''}
@@ -139,7 +151,8 @@ function renderGrid() {
         </div>
       </div>
     </a>
-  `).join('');
+  `;
+  }).join('');
 
   renderPagination();
 }
@@ -1094,6 +1107,24 @@ function renderService() {
 
     </div>
   `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CARD CAROUSEL
+// ═══════════════════════════════════════════════════════════════
+function ccNav(e, btn, dir) {
+  e.preventDefault();
+  e.stopPropagation();
+  const ccImg = btn.closest('.cc-img');
+  const slides = ccImg.querySelectorAll('.cc-slide-img');
+  const dots   = ccImg.querySelectorAll('.cc-dot');
+  let cur = 0;
+  slides.forEach((s, i) => { if (s.classList.contains('act')) cur = i; });
+  const next = (cur + dir + slides.length) % slides.length;
+  slides[cur].classList.remove('act');
+  slides[next].classList.add('act');
+  dots[cur].classList.remove('act');
+  dots[next].classList.add('act');
 }
 
 // ═══════════════════════════════════════════════════════════════

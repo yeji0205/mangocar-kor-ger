@@ -108,6 +108,16 @@ nav a{color:var(--t2);font-size:18px;font-weight:500;transition:color var(--tr)}
 .cc-img{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--bg3)}
 .cc-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
 .cc:hover .cc-img img{transform:scale(1.04)}
+
+/* Card carousel */
+.cc-slide-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s ease}
+.cc-slide-img.act{opacity:1}
+.cc-arr{position:absolute;top:50%;transform:translateY(-50%);z-index:5;background:rgba(0,0,0,.45);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;transition:background .2s;padding:0}
+.cc-arr:hover{background:rgba(0,0,0,.75)}
+.cc-prev{left:8px}.cc-next{right:8px}
+.cc-dots{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:5}
+.cc-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.35);transition:background .2s}
+.cc-dot.act{background:#fff}
 .badges{position:absolute;top:10px;left:10px;display:flex;gap:5px}
 .badge{padding:4px 9px;border-radius:6px;font-size:12px;font-weight:700;backdrop-filter:blur(8px)}
 .b-insp{background:rgba(245,166,35,.95);color:#111}
