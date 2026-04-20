@@ -262,6 +262,10 @@ footer .logo-t{color:#E2E8F0}
   .pp-title-card{display:none}
   .det-header{flex-direction:column}
   .det-header-price{text-align:left}
+  .quick-stats{flex-wrap:wrap}
+  .qs-item{flex:0 0 calc(33.333% - 1px);min-width:0;border-bottom:1px solid var(--brd)}
+  .qs-item:nth-child(3n){border-right:none}
+  .qs-item:nth-last-child(-n+3){border-bottom:none}
 }
 
 /* ≤768px — mobile layout */
