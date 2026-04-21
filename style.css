@@ -476,11 +476,12 @@ footer .logo-t{color:#E2E8F0}
 
 @media(max-width:768px){
   .svc-cards{grid-template-columns:1fr 1fr}
-  .svc-wrap{padding:28px 4% 48px}
+  .svc-wrap{max-width:100%;padding:16px 4% 40px}
 }
 @media(max-width:480px){
   .svc-cards{grid-template-columns:1fr}
   .svc-cta-btns{max-width:100%}
+  .svc-wrap{padding:12px 3% 32px}
 }
 
 /* ─── KONTAKT PAGE ─── */
